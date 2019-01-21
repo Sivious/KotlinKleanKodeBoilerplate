@@ -14,5 +14,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val s : String = splashPresenter.getUserId()
+
+        splashPresenter.setView(this)
+
+        splashPresenter.navigateToMain()
     }
 }

@@ -3,6 +3,8 @@ package com.sivianes.kotlinkleankode.app.base
 import android.app.Application
 import com.sivianes.kotlinkleankode.di.interactorModule
 import com.sivianes.kotlinkleankode.di.repositoryModule
+import com.sivianes.kotlinkleankode.domain.api.Api
+import io.reactivex.disposables.Disposable
 import org.koin.android.ext.android.startKoin
 
 class KleanApp : Application() {
@@ -11,5 +13,6 @@ class KleanApp : Application() {
         super.onCreate()
         startKoin(this, listOf(repositoryModule, interactorModule))
     }
+
 
 }

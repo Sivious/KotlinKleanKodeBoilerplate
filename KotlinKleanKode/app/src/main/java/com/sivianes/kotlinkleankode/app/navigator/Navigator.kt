@@ -6,7 +6,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import com.sivianes.kotlinkleankode.R
 import com.sivianes.kotlinkleankode.ui.main.MainActivity
 
-interface MAIN {
+interface Navigator {
     companion object {
 
         fun navigateToMainActivity(activity: Activity?) {
