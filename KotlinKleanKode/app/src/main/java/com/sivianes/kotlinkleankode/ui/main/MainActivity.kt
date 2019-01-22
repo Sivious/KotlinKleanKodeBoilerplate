@@ -4,48 +4,32 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.sivianes.kotlinkleankode.R
-import com.sivianes.kotlinkleankode.domain.api.Api
 import com.sivianes.kotlinkleankode.domain.model.POTD
-import com.sivianes.kotlinkleankode.ui.Constants
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
-    val api by lazy {
-        Api.create()
-    }
-    var disposable: Disposable? = null
+class MainActivity : AppCompatActivity(), MainPresenter.View {
+    private val mainPresenter: MainPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        beginSearch("Meh")
+        mainPresenter.onCreate(this)
     }
 
+    override fun initView() {
+        mainPresenter.beginSearch()
+    }
 
     override fun onPause() {
         super.onPause()
-        disposable?.dispose()
+        mainPresenter.onPause()
     }
 
-    private fun beginSearch(srsearch: String) {
-        disposable =
-                api.getPOTD("2019-01-02", true, Constants.NASA_API_TOKEN)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { result -> showResult(result) },
-                        { error -> showError(error.message) }
-                    )
-    }
-
-    private fun showError(message: String?) {
+    override fun showError(message: String?) {
         Log.d("MAIN", message)
     }
 
-    private fun showResult(result: POTD?) {
+    override fun loadPictureData(pictureData: POTD) {
         Log.d("MAIN", POTD.toString())
     }
 }
