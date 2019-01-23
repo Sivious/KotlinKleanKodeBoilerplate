@@ -10,7 +10,7 @@
             android:id="@+id/iv_main_photo_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:scaleType="centerCrop"/>
 
     <TextView android:id="@+id/tv_main_photo_title"
@@ -21,7 +21,8 @@
               android:textAlignment="viewEnd"
               android:layout_above="@+id/tv_main_explanation"
               android:textColor="@color/colorWhite"
-              android:textSize="60sp"/>
+              android:textSize="60sp"
+              android:animateLayoutChanges="true"/>
 
     <TextView
             android:id="@+id/tv_main_explanation"
@@ -35,7 +36,8 @@
             android:layout_above="@+id/tv_main_date"
             android:maxLines="3"
             android:ellipsize="end"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:animateLayoutChanges="true"/>
 
     <TextView
             android:id="@+id/tv_main_date"
@@ -51,6 +53,7 @@
             android:maxLines="3"
             android:textStyle="bold"
             android:ellipsize="end"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:animateLayoutChanges="true"/>
 
 </RelativeLayout>

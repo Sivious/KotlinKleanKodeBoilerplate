@@ -1,5 +1,6 @@
 package com.sivianes.kotlinkleankode.ui.main
 
+import android.view.View
 import com.sivianes.kotlinkleankode.domain.interactor.PictureOfTheDayInteractor
 import com.sivianes.kotlinkleankode.domain.model.POTD
 import java.text.SimpleDateFormat
@@ -7,21 +8,21 @@ import java.util.*
 
 
 class MainPresenter(private val potdInteractor: PictureOfTheDayInteractor) : PictureOfTheDayInteractor.Callback {
-    lateinit var mView : View
+    lateinit var mView: View
 
     interface View {
-        fun loadPictureData(pictureData : POTD)
-        fun showError(error : String?)
+        fun loadPictureData(pictureData: POTD)
+        fun showError(error: String?)
         fun initView()
     }
 
-    fun onCreate(view : View) {
+    fun onCreate(view: View) {
         this.mView = view
         mView.initView()
         potdInteractor.onCreate(this)
     }
 
-    fun onPause(){
+    fun onPause() {
         potdInteractor.onPause()
     }
 
@@ -29,8 +30,16 @@ class MainPresenter(private val potdInteractor: PictureOfTheDayInteractor) : Pic
         potdInteractor.getPOTDData(today())
     }
 
-    fun searchByDate (date : String) {
+    fun searchByDate(date: String) {
         potdInteractor.getPOTDData(date)
+    }
+
+    fun getVisibility(view: android.view.View): Int {
+        return if (view.visibility == android.view.View.VISIBLE) {
+            android.view.View.GONE
+        } else {
+            android.view.View.VISIBLE
+        }
     }
 
     private fun today(): String {
@@ -50,5 +59,4 @@ class MainPresenter(private val potdInteractor: PictureOfTheDayInteractor) : Pic
     override fun showError(error: String?) {
         mView.showError(error)
     }
-
 }

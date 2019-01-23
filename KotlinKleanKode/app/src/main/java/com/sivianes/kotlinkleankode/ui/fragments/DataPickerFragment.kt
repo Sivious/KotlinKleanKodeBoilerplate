@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import java.util.*
 
-
 class DataPickerFragment : DialogFragment() {
     lateinit var mCallback: Callback
 

@@ -10,7 +10,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-
 class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListener, DataPickerFragment.Callback {
     private val mainPresenter: MainPresenter by inject()
 
@@ -23,6 +22,11 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
     override fun initView() {
         mainPresenter.beginSearch()
         tv_main_date.setOnClickListener { showDatePicker(rl_main_container) }
+        rl_main_container.setOnClickListener {
+            tv_main_photo_title.visibility = mainPresenter.getVisibility(tv_main_photo_title)
+            tv_main_explanation.visibility = mainPresenter.getVisibility(tv_main_explanation)
+            tv_main_date.visibility = mainPresenter.getVisibility(tv_main_date)
+        }
     }
 
     override fun onPause() {
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
         mainPresenter.beginSearch()
     }
 
-    fun showDatePicker(v: View) {
+    private fun showDatePicker(v: View) {
         val newFragment = DataPickerFragment()
         newFragment.setView(this)
         newFragment.show(supportFragmentManager, "Select Date")
