@@ -1,23 +1,28 @@
 package com.sivianes.kotlinkleankode.ui.main
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import com.sivianes.kotlinkleankode.R
+import android.view.View
 import com.sivianes.kotlinkleankode.domain.model.POTD
+import com.sivianes.kotlinkleankode.ui.fragments.DataPickerFragment
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity(), MainPresenter.View {
+
+class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListener, DataPickerFragment.Callback {
     private val mainPresenter: MainPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.sivianes.kotlinkleankode.R.layout.activity_main)
         mainPresenter.onCreate(this)
     }
 
     override fun initView() {
         mainPresenter.beginSearch()
+        tv_main_date.setOnClickListener { showDatePicker(rl_main_container) }
     }
 
     override fun onPause() {
@@ -26,10 +31,36 @@ class MainActivity : AppCompatActivity(), MainPresenter.View {
     }
 
     override fun showError(message: String?) {
-        Log.d("MAIN", message)
+        Snackbar.make(
+            rl_main_container,
+            getString(com.sivianes.kotlinkleankode.R.string.error_loading),
+            Snackbar.LENGTH_INDEFINITE
+        )
+            .setAction(getString(com.sivianes.kotlinkleankode.R.string.error_retry), this)
+            .show() // Finally show the snack bar
     }
 
     override fun loadPictureData(pictureData: POTD) {
-        Log.d("MAIN", POTD.toString())
+        tv_main_photo_title.text = pictureData.title
+        tv_main_explanation.text = pictureData.explanation
+        tv_main_date.text = pictureData.date
+
+        Picasso.with(applicationContext).load(pictureData.url)
+            .placeholder(com.sivianes.kotlinkleankode.R.drawable.ic_image_placeholder)
+            .into(iv_main_photo_background)
+    }
+
+    override fun onClick(p0: View?) {
+        mainPresenter.beginSearch()
+    }
+
+    fun showDatePicker(v: View) {
+        val newFragment = DataPickerFragment()
+        newFragment.setView(this)
+        newFragment.show(supportFragmentManager, "Select Date")
+    }
+
+    override fun setDate(date: String) {
+        mainPresenter.searchByDate(date)
     }
 }

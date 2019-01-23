@@ -19,9 +19,9 @@ class PictureOfTheDayInteractorImpl : PictureOfTheDayInteractor {
         this.mCallback = callback
     }
 
-    override fun getPOTDData() {
+    override fun getPOTDData(date : String) {
         disposable =
-                api.getPOTD("2019-01-02", true, Constants.NASA_API_TOKEN)
+                api.getPOTD(date, true, Constants.NASA_API_TOKEN)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

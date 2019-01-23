@@ -2,6 +2,9 @@ package com.sivianes.kotlinkleankode.ui.main
 
 import com.sivianes.kotlinkleankode.domain.interactor.PictureOfTheDayInteractor
 import com.sivianes.kotlinkleankode.domain.model.POTD
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class MainPresenter(private val potdInteractor: PictureOfTheDayInteractor) : PictureOfTheDayInteractor.Callback {
     lateinit var mView : View
@@ -23,7 +26,21 @@ class MainPresenter(private val potdInteractor: PictureOfTheDayInteractor) : Pic
     }
 
     fun beginSearch() {
-        potdInteractor.getPOTDData()
+        potdInteractor.getPOTDData(today())
+    }
+
+    fun searchByDate (date : String) {
+        potdInteractor.getPOTDData(date)
+    }
+
+    private fun today(): String {
+        val c = Calendar.getInstance().getTime()
+        println("Current time => $c")
+
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        val formattedDate = df.format(c)
+
+        return formattedDate
     }
 
     override fun loadPictureData(pictureData: POTD) {
