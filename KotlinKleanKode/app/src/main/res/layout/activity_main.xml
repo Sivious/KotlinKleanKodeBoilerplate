@@ -3,14 +3,14 @@
                 android:id="@+id/rl_main_container"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
 
     <ImageView
             android:id="@+id/iv_main_photo_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@android:color/black"
             android:scaleType="centerCrop"/>
 
     <TextView android:id="@+id/tv_main_photo_title"
