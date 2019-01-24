@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.sivianes.kotlinkleankode.R
 import com.sivianes.kotlinkleankode.domain.model.POTD
 import com.sivianes.kotlinkleankode.ui.fragments.DataPickerFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_loading_screen.*
 import org.koin.android.ext.android.inject
+
 
 class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListener, DataPickerFragment.Callback {
     private val mainPresenter: MainPresenter by inject()
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
     }
 
     override fun initView() {
+        startLoading()
         mainPresenter.beginSearch()
         tv_main_date.setOnClickListener { showDatePicker(rl_main_container) }
         rl_main_container.setOnClickListener {
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
     }
 
     override fun showError(message: String?) {
+        stopLoading()
+
         Snackbar.make(
             rl_main_container,
             getString(com.sivianes.kotlinkleankode.R.string.error_loading),
@@ -52,19 +58,30 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
         Picasso.with(applicationContext).load(pictureData.url)
             .placeholder(com.sivianes.kotlinkleankode.R.drawable.ic_image_placeholder)
             .into(iv_main_photo_background)
+
+        stopLoading()
     }
 
     override fun onClick(p0: View?) {
+        startLoading()
         mainPresenter.beginSearch()
     }
 
     private fun showDatePicker(v: View) {
         val newFragment = DataPickerFragment()
         newFragment.setView(this)
-        newFragment.show(supportFragmentManager, "Select Date")
+        newFragment.show(supportFragmentManager, getString(R.string.message_select_date))
     }
 
     override fun setDate(date: String) {
         mainPresenter.searchByDate(date)
+    }
+
+    private fun startLoading() {
+        rl_loading_container.visibility = View.VISIBLE
+    }
+
+    private fun stopLoading() {
+        rl_loading_container.visibility = View.GONE
     }
 }

@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">KotlinKleanKode</string>
+    <string name="app_name">Nasa Picture of the Day</string>
 
     <string name="error_loading">Loading image error</string>
     <string name="error_retry">Retry</string>
+
+    <string name="message_select_date">Select Date</string>
 </resources>

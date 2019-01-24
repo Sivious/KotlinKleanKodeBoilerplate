@@ -56,4 +56,6 @@
             android:textSize="20sp"
             android:animateLayoutChanges="true"/>
 
+    <include layout="@layout/layout_loading_screen"/>
+
 </RelativeLayout>
