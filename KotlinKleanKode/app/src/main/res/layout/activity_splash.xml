@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@android:color/black"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:background="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_above="@+id/ll_splash_planets_container">
+
+        <ImageView android:layout_width="150dp"
+                   android:layout_height="150dp"
+                   android:src="@drawable/ic_nasa_logo"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
 
 
-    <!--<ImageView android:layout_width="match_parent"-->
-               <!--android:layout_height="150dp"-->
-               <!--android:layout_centerVertical="true"-->
-               <!--android:src="@drawable/ic_moon_small"/>-->
+    <LinearLayout android:id="@+id/ll_splash_planets_container"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true">
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_planet_mercury"/>
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_planet_venus"/>
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_planet_earth"/>
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_others_moon"/>
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_planet_mars"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
