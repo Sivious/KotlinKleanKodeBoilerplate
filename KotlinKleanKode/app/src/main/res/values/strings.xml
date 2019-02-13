@@ -5,4 +5,7 @@
     <string name="error_retry">Retry</string>
 
     <string name="message_select_date">Select Date</string>
+    <string name="option_menu_download">Download image</string>
+    <string name="download_manager_title">Downloading image</string>
+
 </resources>
