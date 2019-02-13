@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), MainPresenter.View, View.OnClickListen
         tv_main_date.setOnClickListener { showDatePicker(rl_main_container) }
         rl_main_container.setOnClickListener {
             tv_main_photo_title.visibility = mainPresenter.getVisibility(tv_main_photo_title)
+            sv_main_explanation.visibility = mainPresenter.getVisibility(sv_main_explanation)
             tv_main_explanation.visibility = mainPresenter.getVisibility(tv_main_explanation)
             tv_main_date.visibility = mainPresenter.getVisibility(tv_main_date)
         }
